@@ -1,0 +1,44 @@
+// Nearly Sorted Array
+//
+// An element is at most k positions away
+// from its correct position.
+//
+// Approach: Min Heap
+//
+// Time Complexity: O(N log K)
+// Space Complexity: O(K)
+
+class Solution {
+
+    public void nearlySorted(int[] arr, int k) {
+
+        PriorityQueue<Integer> pq =
+            new PriorityQueue<>();
+
+        int index = 0;
+
+        // Add first k + 1 elements
+        for (int i = 0;
+             i <= k && i < arr.length;
+             i++) {
+
+            pq.offer(arr[i]);
+        }
+
+        // Process remaining elements
+        for (int i = k + 1;
+             i < arr.length;
+             i++) {
+
+            arr[index++] = pq.poll();
+
+            pq.offer(arr[i]);
+        }
+
+        // Empty the heap
+        while (!pq.isEmpty()) {
+
+            arr[index++] = pq.poll();
+        }
+    }
+}
